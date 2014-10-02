@@ -1,0 +1,82 @@
+{
+    "type" : "app",
+
+    "roles" : {
+        "apache2" : {
+            "defaultcontext" : "/workout-file1",
+            "appconfigitems" : [
+                {
+                    "type"         : "file",
+                    "name"         : "file-copy-1.TXT",
+                    "source"       : "file-copy.txt"
+                },
+                {
+                    "type"         : "file",
+                    "name"         : "file-copy-2.txt",
+                    "source"       : "file-copy.txt",
+                    "permissions"  : "1234",
+                    "uname"        : "http",
+                    "gname"        : "games"
+                },
+                {
+                    "type"         : "file",
+                    "name"         : "file-template-varsubst-1.txt",
+                    "template"     : "file-template-varsubst.tmpl",
+                    "templatelang" : "varsubst"
+                },
+                {
+                    "type"         : "file",
+                    "name"         : "file-template-varsubst-2.txt",
+                    "template"     : "file-template-varsubst.tmpl",
+                    "templatelang" : "varsubst",
+                    "permissions"  : "1234",
+                    "uname"        : "http",
+                    "gname"        : "games"
+                },
+                {
+                    "type"         : "file",
+                    "name"         : "file-template-perlscript-1.txt",
+                    "template"     : "file-template-perlscript.pl",
+                    "templatelang" : "perlscript"
+                },
+                {
+                    "type"         : "file",
+                    "name"         : "file-template-perlscript-2.txt",
+                    "template"     : "file-template-perlscript.pl",
+                    "templatelang" : "perlscript",
+                    "permissions"  : "1234",
+                    "uname"        : "http",
+                    "gname"        : "games"
+                },
+                {
+                    "type"         : "directory",
+                    "names"        : [
+                        "multi",
+                        "multi/multi"
+                    ]
+                },
+                {
+                    "type"         : "file",
+                    "names"        : [
+                        "file-1-copy-a.txt",
+                        "multi/multi/file-1-copy-b.txt",
+                        "multi/file-1-copy-c.txt",
+                    ],
+                    "source"       : "dollar-1/$1",
+                    "permissions"  : "1234",
+                    "uname"        : "http",
+                    "gname"        : "games"
+                },
+                {
+                    "type"         : "file",
+                    "names"        : [
+                        "file-2-copy-a.txt",
+                        "multi/multi/file-2-copy-b.txt",
+                        "multi/file-2-copy-c.txt",
+                    ],
+                    "source"       : "dollar-2/$2",
+                }
+            ]
+        }
+    }
+}
