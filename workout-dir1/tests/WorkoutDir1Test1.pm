@@ -40,7 +40,7 @@ my $TEST = new UBOS::WebAppTest(
                     check => sub {
                         my $c = shift;
 
-                        my $dir = $c->apache2ContextDir();
+                        my $dir = $c->getTest()->apache2ContextDir();
 
                         $c->checkDir( "$dir/dir1", 'root', 'root',   '0755' );
                         $c->checkDir( "$dir/dir2", 'http', 'games',  '0555' );

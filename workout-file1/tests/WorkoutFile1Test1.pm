@@ -113,7 +113,7 @@ my $TEST = new UBOS::WebAppTest(
                     check => sub {
                         my $c = shift;
 
-                        my $dir = $c->apache2ContextDir();
+                        my $dir = $c->getTest()->apache2ContextDir();
 
                         debug( 'Checking copied files' );
                         $c->checkFile( "$dir/file-copy-1.TXT", 'root', 'root',  '0644', \&checkStaticContent );

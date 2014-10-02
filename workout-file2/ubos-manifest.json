@@ -1,0 +1,48 @@
+{
+    "type" : "app",
+
+    "roles" : {
+        "apache2" : {
+            "defaultcontext" : "/workout-file2",
+            "appconfigitems" : [
+                {
+                    "type"         : "file",
+                    "name"         : "${appconfig.cronjobfile}",
+                    "source"       : "cron-template.tmpl"
+                },                    
+                {
+                    "type"         : "file",
+                    "names"        : [
+                        "${apache2.appconfigfragmentdir}/file.txt",
+                        "${apache2.sitesdir}/file.txt",
+                        "${apache2.ssldir}/file.txt",
+                        "${appconfig.apache2.appconfigfragmentfile}",
+                        "${appconfig.apache2.dir}/file.txt",
+                        "${site.apache2.authgroupfile}",
+                        "${site.apache2.htdigestauthuserfile}"
+                    ],
+                    "source"       : "apache2-template.tmpl"
+                },
+                {
+                    "type"         : "directory",
+                    "name" : "${appconfig.datadir}"
+                },
+                {
+                    "type"         : "file",
+                    "names"        : [
+                        "${appconfig.appconfigid}",
+                        "${appconfig.datadir}/${hostname}",
+                        "${site.siteid}",
+                        "${site.hostname}-${site.protocol}",
+                        "${host.tmpdir}${appconfig.context}",
+                        "${appconfig.contextnoslashorroot}",
+                        "${site.admin.email}-${site.admin.userid}"
+                    ],
+                    "source"       : "file-template.tmpl",
+                    "uname"        : "${apache2.uname}",
+                    "gname"        : "${apache2.gname}"
+                }
+            ]
+        }
+    }
+}
