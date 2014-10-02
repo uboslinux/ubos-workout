@@ -1,0 +1,43 @@
+{
+    "type" : "app",
+
+    "roles" : {
+        "apache2" : {
+            "defaultcontext" : "/workout-dir1",
+            "appconfigitems" : [
+                {
+                    "type"         : "directory",
+                    "name"         : "dir1"
+                },
+                {
+                    "type"         : "directory",
+                    "name"         : "dir2",
+                    "permissions"  : "555",
+                    "uname"        : "http",
+                    "gname"        : "games"
+                },
+                {
+                    "type"         : "directory",
+                    "name"         : "/var/tmp/workout-dir1-dir1",
+                },
+                {
+                    "type"         : "directory",
+                    "name"         : "/var/tmp/workout-dir1-dir2",
+                    "permissions"  : "777",
+                    "uname"        : "http",
+                    "gname"        : "games"
+                },
+                {
+                    "type"         : "directory",
+                    "names"        : [
+                        "multi",
+                        "multi/multi"
+                    ],
+                    "permissions"  : "101",
+                    "uname"        : "http",
+                    "gname"        : "games"
+                }
+            ]
+        }
+    }
+}
