@@ -1,0 +1,40 @@
+{
+    "type" : "app",
+
+    "roles" : {
+        "apache2" : {
+            "defaultcontext" : "/workout-mysql1",
+            "appconfigitems" : [
+                {
+                    "type" : "file",
+                    "name" : "db",
+                    "template"     : "db.tmpl",
+                    "templatelang" : "varsubst"
+                }
+            ]
+        },
+        "mysql" : {
+            "appconfigitems" : [
+                {
+                    "type"         : "mysql-database",
+                    "name"         : "foo",
+                    "privileges"   : "SELECT, UPDATE, INSERT, DELETE"
+                }
+            ],
+            "installers" : [
+                {
+                    "name"         : "foo",
+                    "type"         : "sqlscript",
+                    "source"       : "install.sql"
+                }
+            ],
+            "upgraders" : [
+                {
+                    "name"         : "foo",
+                    "type"         : "sqlscript",
+                    "source"       : "upgrade.sql"
+                }
+            ]
+        }
+    }
+}
