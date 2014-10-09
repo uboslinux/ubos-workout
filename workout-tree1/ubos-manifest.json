@@ -1,0 +1,32 @@
+{
+    "type" : "app",
+
+    "roles" : {
+        "apache2" : {
+            "defaultcontext" : "/workout-tree1",
+            "appconfigitems" : [
+                {
+                    "type"         : "directorytree",
+                    "name"         : "tree-1-asis",
+                    "source"       : "tree-1",
+                },
+                {
+                    "type"         : "directorytree",
+                    "name"         : "tree-1-preserve",
+                    "source"       : "tree-1",
+                    "filepermissions" : "preserve",
+                    "dirpermissions"  : "preserve",
+                    "uname"        : "http",
+                    "gname"        : "games"
+                },
+                {
+                    "type"         : "directorytree",
+                    "name"         : "tree-1-chmod",
+                    "source"       : "tree-1",
+                    "filepermissions" : "0432",
+                    "dirpermissions"  : "0753"
+                }
+            ]
+        }
+    }
+}
