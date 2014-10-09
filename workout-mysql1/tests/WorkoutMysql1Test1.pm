@@ -46,31 +46,40 @@ my $TEST = new UBOS::WebAppTest(
                         my( $dbHost, $dbPort, $dbName, $dbUserLid, $dbUserLidCredential );
                         eval $dbFileContent || $c->error( 'Eval failed', $! );
 
-                        unless( $dbHost ) {
-                            $c->error( 'dbHost not set' );
-                        }
-                        unless( $dbPort ) {
-                            $c->error( 'dbPort not set' );
-                        }
-                        unless( $dbName ) {
-                            $c->error( 'dbName not set' );
-                        }
-                        unless( $dbUserLid ) {
-                            $c->error( 'dbUserLid not set' );
-                        }
-                        unless( $dbUserLidCredential ) {
-                            $c->error( 'dbUserLidCredential not set' );
-                        }
-                        
                         my $dbh = UBOS::Databases::MySqlDriver::dbConnect( $dbName, $dbUserLid, $dbUserLidCredential, $dbHost, $dbPort );
                         my $sth = UBOS::Databases::MySqlDriver::sqlPrepareExecute( $dbh, <<SQL );
 SELECT * FROM `happenings` ORDER BY `ts`;
 SQL
-                        my @events = ();
+                        my %events = ();
                         while( my $ref = $sth->fetchrow_hashref() ) {
-                            push @events, $ref->{event};
+                            my $event = $ref->{event};
+                            if( exists( $events{$event} )) {
+                                ++$events{$event};
+                            } else {
+                                $events{$event} = 1;
+                            }
                         }
-                        print "Events:\n" . join( "\n", @events ) . "\n";
+
+                        # There can be two events (create and install) or three events (plus: upgrade)
+                        if( exists( $events{'create.sql'} )) {
+                            unless( $events{'create.sql'} == 1 ) {
+                                $c->error( 'Too many create events', $events{'create.sql'} );
+                            }
+                        } else {
+                            $c->error( 'No create event' );
+                        }
+                        if( exists( $events{'install.sql'} )) {
+                            unless( $events{'install.sql'} == 1 ) {
+                                $c->error( 'Too many install events', $events{'install.sql'} );
+                            }
+                        } else {
+                            $c->error( 'No install event' );
+                        }
+                        if( exists( $events{'upgrade.sql'} )) {
+                            unless( $events{'upgrade.sql'} == 1 ) {
+                                $c->error( 'Too many upgrade events', $events{'upgrade.sql'} );
+                            }
+                        } # There may not be an upgrade event
                         return 1;
                     }
             )

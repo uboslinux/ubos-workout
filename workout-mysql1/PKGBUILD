@@ -16,7 +16,7 @@ package() {
 
 # Code
     mkdir -p ${pkgdir}/usr/share/${pkgname}
-    install -m0644 ${startdir}/{install,upgrade}.sql ${pkgdir}/usr/share/${pkgname}
+    install -m0644 ${startdir}/{create,install,upgrade}.sql ${pkgdir}/usr/share/${pkgname}
 
 # Templates
     install -m0644 ${startdir}/db.tmpl ${pkgdir}/usr/share/${pkgname}

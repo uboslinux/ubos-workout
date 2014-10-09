@@ -18,7 +18,14 @@
                 {
                     "type"         : "mysql-database",
                     "name"         : "foo",
-                    "privileges"   : "SELECT, UPDATE, INSERT, DELETE"
+                    "privileges"   : "SELECT, UPDATE, INSERT, DELETE",
+                    "retentionbucket" : "bar",
+                    "retentionpolicy" : "keep"
+                },
+                {
+                    "type"         : "sqlscript",
+                    "name"         : "foo",
+                    "source"       : "create.sql"
                 }
             ],
             "installers" : [
