@@ -1,0 +1,15 @@
+{
+    "type" : "app",
+
+    "roles" : {
+        "apache2" : {
+            "defaultcontext" : "/workout-perlscript1",
+            "appconfigitems" : [
+                {
+                    "type"         : "perlscript",
+                    "source"       : "script.pl"
+                }
+            ]
+        }
+    }
+}
