@@ -1,0 +1,21 @@
+{
+    "type" : "app",
+
+    "roles" : {
+        "apache2" : {
+            "defaultcontext" : "/workout-symlink1",
+            "appconfigitems" : [
+                {
+                    "type"         : "symlink",
+                    "name"         : "symlink-1",
+                    "source"       : "/tmp",
+                },
+                {
+                    "type"         : "symlink",
+                    "name"         : "symlink-2",
+                    "source"       : "${package.codedir}/somefile"
+                }
+            ]
+        }
+    }
+}
