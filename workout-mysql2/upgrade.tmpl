@@ -1,2 +1,2 @@
 INSERT INTO `happenings` ( event, argument )
-       VALUES            ( 'upgrade.tmpl', '${site.siteid}' );
+       VALUES            ( 'upgrade.tmpl', '${site.siteid} ${appconfig.mysql.dbuser.valuabletemplate}@${appconfig.mysql.dbhost.valuabletemplate}' );

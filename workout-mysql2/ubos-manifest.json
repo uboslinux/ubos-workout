@@ -19,7 +19,7 @@
                 {
                     "type"         : "mysql-database",
                     "name"         : "valuabletemplate",
-                    "privileges"   : "CREATE, UPDATE, INSERT, DELETE, INDEX",
+                    "privileges"   : "SELECT, UPDATE, INSERT, DELETE",
                 },
                 {
                     "type"         : "sqlscript",

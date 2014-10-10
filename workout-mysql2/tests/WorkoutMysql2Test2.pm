@@ -39,8 +39,9 @@ my $TEST = new UBOS::WebAppTest(
             new UBOS::WebAppTest::StateCheck(
                     name  => 'virgin',
                     check => sub {
-print "In StateCheck virgin\n";
                         my $c = shift;
+
+                        my $siteId        = $c->getTest()->siteId();
                         my $dbFile        = $c->getTest()->apache2ContextDir() .  '/db';
                         my $dbFileContent = UBOS::Utils::slurpFile( $dbFile );
                         
@@ -48,8 +49,46 @@ print "In StateCheck virgin\n";
                         eval $dbFileContent || $c->error( 'Eval failed', $! );
 
                         my $dbh = UBOS::Databases::MySqlDriver::dbConnect( $dbName, $dbUserLid, $dbUserLidCredential, $dbHost, $dbPort );
-print "dbh: $dbh\n";
 
+                        my $sth = UBOS::Databases::MySqlDriver::sqlPrepareExecute( $dbh, <<SQL );
+SELECT * FROM `happenings` ORDER BY `ts`;
+SQL
+                        my %events = ();
+                        while( my $ref = $sth->fetchrow_hashref() ) {
+                            my $event = $ref->{event};
+                            if( exists( $events{$event} )) {
+                                ++$events{$event};
+                            } else {
+                                $events{$event} = 1;
+                            }
+                            unless( $ref->{argument} =~ m!$siteId! ) {
+                                $c->error( 'No siteid in argument column' );
+                            }
+                            unless( $ref->{argument} =~ m!$dbUserLid! ) {
+                                $c->error( 'No dbUserLid in argument column' );
+                            }
+                        }
+
+                        # There can be two events (create and install) or three events (plus: upgrade)
+                        if( exists( $events{'create.tmpl'} )) {
+                            unless( $events{'create.tmpl'} == 1 ) {
+                                $c->error( 'Too many create events', $events{'create.tmpl'} );
+                            }
+                        } else {
+                            $c->error( 'No create event' );
+                        }
+                        if( exists( $events{'install.tmpl'} )) {
+                            unless( $events{'install.tmpl'} == 1 ) {
+                                $c->error( 'Too many install events', $events{'install.tmpl'} );
+                            }
+                        } else {
+                            $c->error( 'No install event' );
+                        }
+                        if( exists( $events{'upgrade.tmpl'} )) {
+                            unless( $events{'upgrade.tmpl'} == 1 ) {
+                                $c->error( 'Too many upgrade events', $events{'upgrade.tmpl'} );
+                            }
+                        } # There may not be an upgrade event
                         return 1;
                     }
             )
