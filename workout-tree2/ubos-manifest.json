@@ -1,0 +1,31 @@
+{
+    "type" : "app",
+
+    "roles" : {
+        "apache2" : {
+            "defaultcontext" : "/workout-tree2",
+            "appconfigitems" : [
+                {
+                    "type"         : "directory",
+                    "name"         : "dir"
+                },
+                {
+                    "type"         : "directorytree",
+                    "names"        : [
+                        "dir/tree-dollar1-1",
+                        "dir/tree-dollar1-2"
+                    ],
+                    "source"       : "$1"
+                },
+                {
+                    "type"         : "directorytree",
+                    "names"        : [
+                        "dir/tree-dollar2-1",
+                        "dir/tree-dollar2-2"
+                    ],
+                    "source"       : "$2"
+                }
+            ]
+        }
+    }
+}
