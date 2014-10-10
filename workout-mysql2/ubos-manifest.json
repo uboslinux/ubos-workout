@@ -1,0 +1,49 @@
+{
+    "type" : "app",
+
+    "roles" : {
+        "apache2" : {
+            "defaultcontext" : "/workout-mysql2",
+            "appconfigitems" : [
+                {
+                    "type" : "file",
+                    "name" : "db",
+                    "template"     : "db.tmpl",
+                    "templatelang" : "varsubst"
+                }
+            ]
+        },
+
+        "mysql" : {
+            "appconfigitems" : [
+                {
+                    "type"         : "mysql-database",
+                    "name"         : "valuabletemplate",
+                    "privileges"   : "CREATE, UPDATE, INSERT, DELETE, INDEX",
+                },
+                {
+                    "type"         : "sqlscript",
+                    "name"         : "valuabletemplate",
+                    "template"     : "create.tmpl",
+                    "templatelang" : "varsubst"
+                }
+            ],
+            "installers" : [
+                {
+                    "name"         : "valuabletemplate",
+                    "type"         : "sqlscript",
+                    "template"     : "install.tmpl",
+                    "templatelang" : "varsubst"
+                }
+            ],
+            "upgraders" : [
+                {
+                    "name"         : "valuabletemplate",
+                    "type"         : "sqlscript",
+                    "template"     : "upgrade.tmpl",
+                    "templatelang" : "varsubst"
+                }
+            ]
+        }
+    }
+}

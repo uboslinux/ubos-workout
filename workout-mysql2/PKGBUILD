@@ -1,0 +1,20 @@
+developer="http://indiecomputing.com/"
+url="http://ubos.net/"
+maintainer=${developer}
+pkgname=$(basename $(pwd))
+pkgver=0.1
+pkgrel=1
+pkgdesc="Exercises ubos-admin: mysql"
+arch=('any')
+license=('GPL')
+options=('!strip')
+
+package() {
+# Manifest
+    mkdir -p ${pkgdir}/var/lib/ubos/manifests
+    install -m0644 ${startdir}/ubos-manifest.json ${pkgdir}/var/lib/ubos/manifests/${pkgname}.json
+
+# Templates
+    mkdir -p ${pkgdir}/usr/share/${pkgname}
+    install -m0644 ${startdir}/{create,db,install,upgrade}.tmpl ${pkgdir}/usr/share/${pkgname}
+}
