@@ -42,14 +42,14 @@ my $TEST = new UBOS::WebAppTest(
 
                         my $dir = $c->getTest()->apache2ContextDir();
 
-                        $c->checkDir( "$dir/dir1", 'root', 'root',   '0755' );
-                        $c->checkDir( "$dir/dir2", 'http', 'games',  '0555' );
+                        $c->checkDir( "$dir/dir1", 'root', 'root',   0755 );
+                        $c->checkDir( "$dir/dir2", 'http', 'games',  0555 );
 
-                        $c->checkDir( "/var/tmp/workout-dir1-dir1", 'root', 'root',   '0755' );
-                        $c->checkDir( "/var/tmp/workout-dir1-dir2", 'http', 'games',  '0777' );
+                        $c->checkDir( "/var/tmp/workout-dir1-dir1", 'root', 'root',   0755 );
+                        $c->checkDir( "/var/tmp/workout-dir1-dir2", 'http', 'games',  0777 );
 
-                        $c->checkDir( "$dir/multi",       'http', 'games',  '0101' );
-                        $c->checkDir( "$dir/multi/multi", 'http', 'games',  '0101' );
+                        $c->checkDir( "$dir/multi",       'http', 'games', 0101 );
+                        $c->checkDir( "$dir/multi/multi", 'http', 'games', 0101 );
                         
                         return 1;
                     }

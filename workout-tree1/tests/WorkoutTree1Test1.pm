@@ -63,9 +63,9 @@ my $TEST = new UBOS::WebAppTest(
 
                         my $dir = $c->getTest()->apache2ContextDir();
 
-                        checkDir( $c, "$dir/tree-1-asis",     'root', 'root', '0755', '0644' );
-                        checkDir( $c, "$dir/tree-1-chmod",    'root', 'root', '0753', '0432' );
-                        checkDir( $c, "$dir/tree-1-preserve", 'http', 'games', '0755', '0644' );
+                        checkDir( $c, "$dir/tree-1-asis",     'root', 'root',  0755, 0644 );
+                        checkDir( $c, "$dir/tree-1-chmod",    'root', 'root',  0753, 0432 );
+                        checkDir( $c, "$dir/tree-1-preserve", 'http', 'games', 0755, 0644 );
                         
                         return 1;
                     }

@@ -116,24 +116,24 @@ my $TEST = new UBOS::WebAppTest(
                         my $dir = $c->getTest()->apache2ContextDir();
 
                         debug( 'Checking copied files' );
-                        $c->checkFile( "$dir/file-copy-1.TXT", 'root', 'root',  '0644', \&checkStaticContent );
-                        $c->checkFile( "$dir/file-copy-2.txt", 'http', 'games', '1234', \&checkStaticContent );
+                        $c->checkFile( "$dir/file-copy-1.TXT", 'root', 'root',   0644, \&checkStaticContent );
+                        $c->checkFile( "$dir/file-copy-2.txt", 'http', 'games', 01234, \&checkStaticContent );
 
                         debug( 'Checking varsubst files' );
-                        $c->checkFile( "$dir/file-template-varsubst-1.txt", 'root', 'root',  '0644', \&checkTemplateContent );
-                        $c->checkFile( "$dir/file-template-varsubst-2.txt", 'http', 'games', '1234', \&checkTemplateContent );
+                        $c->checkFile( "$dir/file-template-varsubst-1.txt", 'root', 'root',   0644, \&checkTemplateContent );
+                        $c->checkFile( "$dir/file-template-varsubst-2.txt", 'http', 'games', 01234, \&checkTemplateContent );
 
                         debug( 'Checking perlscript files' );
-                        $c->checkFile( "$dir/file-template-perlscript-1.txt", 'root', 'root',  '0644', \&checkTemplateContent );
-                        $c->checkFile( "$dir/file-template-perlscript-2.txt", 'http', 'games', '1234', \&checkTemplateContent );
+                        $c->checkFile( "$dir/file-template-perlscript-1.txt", 'root', 'root',   0644, \&checkTemplateContent );
+                        $c->checkFile( "$dir/file-template-perlscript-2.txt", 'http', 'games', 01234, \&checkTemplateContent );
 
                         debug( 'Checking multi-name files' );
-                        $c->checkFile( "$dir/file-1-copy-a.txt", 'http', 'games', '1234', \&checkStaticContent );
-                        $c->checkFile( "$dir/file-2-copy-a.txt", 'root', 'root',  '0644', \&checkStaticContent );
-                        $c->checkFile( "$dir/multi/file-1-copy-c.txt", 'http', 'games', '1234', \&checkStaticContent );
-                        $c->checkFile( "$dir/multi/file-2-copy-c.txt", 'root', 'root',  '0644', \&checkStaticContent );
-                        $c->checkFile( "$dir/multi/multi/file-1-copy-b.txt", 'http', 'games', '1234', \&checkStaticContent );
-                        $c->checkFile( "$dir/multi/multi/file-2-copy-b.txt", 'root', 'root',  '0644', \&checkStaticContent );
+                        $c->checkFile( "$dir/file-1-copy-a.txt", 'http', 'games', 01234, \&checkStaticContent );
+                        $c->checkFile( "$dir/file-2-copy-a.txt", 'root', 'root',   0644, \&checkStaticContent );
+                        $c->checkFile( "$dir/multi/file-1-copy-c.txt", 'http', 'games', 01234, \&checkStaticContent );
+                        $c->checkFile( "$dir/multi/file-2-copy-c.txt", 'root', 'root',   0644, \&checkStaticContent );
+                        $c->checkFile( "$dir/multi/multi/file-1-copy-b.txt", 'http', 'games', 01234, \&checkStaticContent );
+                        $c->checkFile( "$dir/multi/multi/file-2-copy-b.txt", 'root', 'root',   0644, \&checkStaticContent );
                         
                         return 1;
                     }
