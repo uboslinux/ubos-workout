@@ -64,7 +64,7 @@ my $TEST = new UBOS::WebAppTest(
                         debug( 'Checking section 4' );
 
                         $c->checkFile( "$dir/$appConfigId",                                    'http', 'http', 0644 );
-                        $c->checkFile( "/var/lib/workout-file2/$appConfigId/$hostname",        'http', 'http', 0644 );
+                        # Cannot test: "/var/lib/workout-file2/$appConfigId/$hostname": must be remote hostname
                         $c->checkFile( "$dir/$siteId",                                         'http', 'http', 0644 );
                         $c->checkFile( "$dir/$vhostname-http",                                 'http', 'http', 0644 );
                         $c->checkFile( "/tmp/workout-file2",                                   'http', 'http', 0644 );
