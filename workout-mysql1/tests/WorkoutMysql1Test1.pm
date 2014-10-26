@@ -42,6 +42,10 @@ my $TEST = new UBOS::WebAppTest(
                         my $c = shift;
                         my $dbFile        = $c->getTest()->apache2ContextDir() .  '/db';
                         my $dbFileContent = UBOS::Utils::slurpFile( $dbFile );
+                        unless( $dbFileContent ) {
+                            error( 'Cannot continue, dbFile not here' );
+                            return 0;
+                        }
                         
                         my( $dbHost, $dbPort, $dbName, $dbUserLid, $dbUserLidCredential );
                         eval $dbFileContent || $c->error( 'Eval failed', $! );
