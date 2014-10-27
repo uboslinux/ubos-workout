@@ -39,51 +39,83 @@ my $TEST = new UBOS::WebAppTest(
             new UBOS::WebAppTest::StateCheck(
                     name  => 'virgin',
                     check => sub {
-                        my $c = shift;
-                        my $dbFile        = $c->getTest()->apache2ContextDir() .  '/db';
-                        my $dbFileContent = UBOS::Utils::slurpFile( $dbFile );
-                        unless( $dbFileContent ) {
-                            error( 'Cannot continue, dbFile not here' );
-                            return 0;
-                        }
-                        
-                        my( $dbHost, $dbPort, $dbName, $dbUserLid, $dbUserLidCredential );
-                        eval $dbFileContent || $c->error( 'Eval failed', $! );
+                        my $c      = shift;
+                        my $dbFile = $c->getTest()->apache2ContextDir() .  '/db';
 
-                        my $dbh = UBOS::Databases::MySqlDriver::dbConnect( $dbName, $dbUserLid, $dbUserLidCredential, $dbHost, $dbPort );
-                        my $sth = UBOS::Databases::MySqlDriver::sqlPrepareExecute( $dbh, <<SQL );
+                        my $scaffold = $c->getScaffold();
+
+                        my $out;
+                        my $err;
+                        my $cmd = <<CMD;
+use strict;
+use warnings;
+use UBOS::Utils;
+use UBOS::Databases::MySqlDriver;
+
+my \$dbFileContent = UBOS::Utils::slurpFile( '$dbFile' );
+CMD
+                        $cmd .= <<'CMD';
+unless( $dbFileContent ) {
+    print STDERR "Cannot continue, dbFile not here\n";
+    exit 1;
+}
+my( $dbHost, $dbPort, $dbName, $dbUserLid, $dbUserLidCredential );
+unless( eval $dbFileContent ) {
+    print STDERR "Eval failed: $!\n";
+    exit 1;
+}
+
+my $dbh = UBOS::Databases::MySqlDriver::dbConnect( $dbName, $dbUserLid, $dbUserLidCredential, $dbHost, $dbPort );
+my $sth = UBOS::Databases::MySqlDriver::sqlPrepareExecute( $dbh, <<SQL );
 SELECT * FROM `happenings` ORDER BY `ts`;
 SQL
-                        my %events = ();
-                        while( my $ref = $sth->fetchrow_hashref() ) {
-                            my $event = $ref->{event};
-                            if( exists( $events{$event} )) {
-                                ++$events{$event};
-                            } else {
-                                $events{$event} = 1;
-                            }
+
+my %events = ();
+while( my $ref = $sth->fetchrow_hashref() ) {
+    my $event = $ref->{event};
+    if( exists( $events{$event} )) {
+        ++$events{$event};
+    } else {
+        $events{$event} = 1;
+    }
+}
+
+my $exit = 0;
+# There can be two events (create and install) or three events (plus: upgrade)
+if( exists( $events{'create.sql'} )) {
+    unless( $events{'create.sql'} == 1 ) {
+        print STDERR "Too many create events: " . $events{'create.sql'} . "\n";
+        $exit = 1;
+    }
+} else {
+    print STDERR "No create event\n";
+    $exit = 1;
+}
+if( exists( $events{'install.sql'} )) {
+    unless( $events{'install.sql'} == 1 ) {
+        print STDERR "Too many install events: " . $events{'install.sql'} . "\n";
+        $exit = 1;
+    }
+} else {
+    print STDERR "No install event\n";
+    $exit = 1;
+}
+if( exists( $events{'upgrade.sql'} )) {
+    unless( $events{'upgrade.sql'} == 1 ) {
+        print STDERR "Too many upgrade events: " . $events{'upgrade.sql'} . "\n";
+        $exit = 1;
+    }
+} # There may not be an upgrade event
+
+exit $exit;
+CMD
+
+                        my $ret = $scaffold->invokeOnTarget( 'perl', $cmd, \$out, \$err );
+                        if( $ret != 0 ) {
+                            $c->error( $err );
+                            return 0;
                         }
 
-                        # There can be two events (create and install) or three events (plus: upgrade)
-                        if( exists( $events{'create.sql'} )) {
-                            unless( $events{'create.sql'} == 1 ) {
-                                $c->error( 'Too many create events', $events{'create.sql'} );
-                            }
-                        } else {
-                            $c->error( 'No create event' );
-                        }
-                        if( exists( $events{'install.sql'} )) {
-                            unless( $events{'install.sql'} == 1 ) {
-                                $c->error( 'Too many install events', $events{'install.sql'} );
-                            }
-                        } else {
-                            $c->error( 'No install event' );
-                        }
-                        if( exists( $events{'upgrade.sql'} )) {
-                            unless( $events{'upgrade.sql'} == 1 ) {
-                                $c->error( 'Too many upgrade events', $events{'upgrade.sql'} );
-                            }
-                        } # There may not be an upgrade event
                         return 1;
                     }
             )
