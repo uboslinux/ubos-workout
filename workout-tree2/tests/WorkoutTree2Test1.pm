@@ -33,8 +33,6 @@ use UBOS::WebAppTest;
 my $TEST = new UBOS::WebAppTest(
     appToTest   => 'workout-tree2',
     description => 'Tests installation of directory tree AppConfigItems.',
-    testContext => '/workout-tree2',
-    hostname    => 'test',
     checks      => [
             new UBOS::WebAppTest::StateCheck(
                     name  => 'virgin',

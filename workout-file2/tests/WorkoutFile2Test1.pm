@@ -34,8 +34,6 @@ use UBOS::WebAppTest;
 my $TEST = new UBOS::WebAppTest(
     appToTest   => 'workout-file2',
     description => 'Tests installation of file AppConfigItems with variables in filenames.',
-    testContext => '/workout-file2',
-    hostname    => 'test',
     checks      => [
             new UBOS::WebAppTest::StateCheck(
                     name  => 'virgin',

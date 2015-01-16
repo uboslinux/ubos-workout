@@ -32,8 +32,6 @@ use UBOS::WebAppTest;
 my $TEST = new UBOS::WebAppTest(
     appToTest   => 'workout-dir1',
     description => 'Tests installation of directory AppConfigItems.',
-    testContext => '/workout-dir1',
-    hostname    => 'test',
     checks      => [
             new UBOS::WebAppTest::StateCheck(
                     name  => 'virgin',

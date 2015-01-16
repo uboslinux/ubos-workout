@@ -105,8 +105,6 @@ sub checkTemplateContent {
 my $TEST = new UBOS::WebAppTest(
     appToTest   => 'workout-file1',
     description => 'Tests installation of file AppConfigItems.',
-    testContext => '/workout-file1',
-    hostname    => 'test',
     checks      => [
             new UBOS::WebAppTest::StateCheck(
                     name  => 'virgin',

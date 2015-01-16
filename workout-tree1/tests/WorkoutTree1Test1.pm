@@ -53,8 +53,6 @@ sub checkDir {
 my $TEST = new UBOS::WebAppTest(
     appToTest   => 'workout-tree1',
     description => 'Tests installation of directory tree AppConfigItems.',
-    testContext => '/workout-tree1',
-    hostname    => 'test',
     checks      => [
             new UBOS::WebAppTest::StateCheck(
                     name  => 'virgin',

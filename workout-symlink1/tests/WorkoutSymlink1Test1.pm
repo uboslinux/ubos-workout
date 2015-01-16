@@ -33,8 +33,6 @@ use UBOS::WebAppTest;
 my $TEST = new UBOS::WebAppTest(
     appToTest   => 'workout-symlink1',
     description => 'Tests installation of symlink AppConfigItems.',
-    testContext => '/workout-symlink1',
-    hostname    => 'test',
     checks      => [
             new UBOS::WebAppTest::StateCheck(
                     name  => 'virgin',

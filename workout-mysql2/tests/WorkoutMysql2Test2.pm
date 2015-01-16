@@ -33,8 +33,6 @@ use UBOS::WebAppTest;
 my $TEST = new UBOS::WebAppTest(
     appToTest   => 'workout-mysql2',
     description => 'Tests MySQL database initialization and upgrade based on templates.',
-    testContext => '/workout-mysql2',
-    hostname    => 'test',
     checks      => [
             new UBOS::WebAppTest::StateCheck(
                     name  => 'virgin',
