@@ -128,7 +128,7 @@ my $TEST = new UBOS::WebAppTest(
 
                         my $dir = $c->apache2ContextDir();
 
-                        initVars( $c->hostName(), $c->context() );
+                        initVars( $c->hostname(), $c->context() );
 
                         debug( 'Checking copied files' );
                         $c->checkFile( "$dir/file-copy-1.TXT", 'root', 'root',   0644, \&checkStaticContent );
