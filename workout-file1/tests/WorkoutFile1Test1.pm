@@ -31,10 +31,10 @@ use UBOS::WebAppTest;
 my %vars = ();
 
 # Initialize the vars hash
-# $hostName: the host at which the site runs
+# $hostname: the host at which the site runs
 # $context: the context at which the site runs
 sub initVars {
-    my $hostName = shift;
+    my $hostname = shift;
     my $context  = shift;
 
     my $noSlashOrRootContext = $context;
@@ -76,7 +76,7 @@ sub initVars {
         'site.apache2.htdigestauthuserfile'       => '/etc/httpd/ubos/sites/s[\da-f]{40}\.htdigest',
         'site.apache2.sitedocumentdir'            => '/srv/http/sites/s[\da-f]{40}',
         'site.apache2.sitefragmentfile'           => '/etc/httpd/ubos/sites/s[\da-z]{40}\.conf',
-        'site.hostname'                           => $hostName,
+        'site.hostname'                           => $hostname,
         'site.protocol'                           => 'http',
         'site.siteid'                             => 's[\da-f]{40}'
     );
