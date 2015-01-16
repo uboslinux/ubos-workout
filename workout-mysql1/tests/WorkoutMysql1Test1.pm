@@ -38,7 +38,7 @@ my $TEST = new UBOS::WebAppTest(
                     name  => 'virgin',
                     check => sub {
                         my $c      = shift;
-                        my $dbFile = $c->getTestPlan()->apache2ContextDir() .  '/db';
+                        my $dbFile = $c->apache2ContextDir() .  '/db';
 
                         my $scaffold = $c->getScaffold();
 

@@ -39,7 +39,7 @@ my $TEST = new UBOS::WebAppTest(
                     check => sub {
                         my $c = shift;
 
-                        my $dir = $c->getTestPlan()->apache2ContextDir();
+                        my $dir = $c->apache2ContextDir();
 
                         $c->checkSymlink( '/tmp',                                 "$dir/symlink-1" );
                         $c->checkSymlink( '/usr/share/workout-symlink1/somefile', "$dir/symlink-2" );

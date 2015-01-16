@@ -39,7 +39,7 @@ my $TEST = new UBOS::WebAppTest(
                     check => sub {
                         my $c = shift;
 
-                        my $dir = $c->getTestPlan()->apache2ContextDir();
+                        my $dir = $c->apache2ContextDir();
 
                         $c->checkDir(  "$dir/dir" );
                         $c->checkDir(  "$dir/dir/tree-dollar1-1" );

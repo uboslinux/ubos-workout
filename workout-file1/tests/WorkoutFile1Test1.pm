@@ -37,8 +37,11 @@ sub initVars {
     my $hostName = shift;
     my $context  = shift;
 
-    my $noSlashContext = $context;
-    $noSlashContext =~ s!^/!!;
+    my $noSlashOrRootContext = $context;
+    $noSlashOrRootContext =~ s!^/!!;
+    unless( $noSlashOrRootContext ) {
+        $noSlashOrRootContext = 'ROOT';
+    }
 
     my $contextOrSlash = $context ? $context : '/';
 
@@ -53,7 +56,7 @@ sub initVars {
         'appconfig.apache2.dir'                   => '/srv/http/sites/s[\da-f]{40}' . $context,
         'appconfig.appconfigid'                   => 'a[\da-f]{40}',
         'appconfig.context'                       => $context,
-        'appconfig.contextnoslashorroot'          => $noSlashContext,
+        'appconfig.contextnoslashorroot'          => $noSlashOrRootContext,
         'appconfig.contextorslash'                => $contextOrSlash,
         'appconfig.cronjobfile'                   => '/etc/cron.d/50-a[\da-f]{40}',
         'appconfig.datadir'                       => '/var/lib/workout-file1/a[\da-f]{40}',

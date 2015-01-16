@@ -43,6 +43,7 @@ my $TEST = new UBOS::WebAppTest(
                         my $appConfigId = $c->getTestPlan()->appConfigId();
                         my $dir         = $c->apache2ContextDir();
                         my $hostname    = hostname();
+                        my $context     = $c->context();
                         my $siteId      = $c->getTestPlan()->siteId();
                         my $vhostname   = $c->getTestPlan()->hostname();
 
@@ -65,8 +66,8 @@ my $TEST = new UBOS::WebAppTest(
                         # Cannot test: "/var/lib/workout-file2/$appConfigId/$hostname": must be remote hostname
                         $c->checkFile( "$dir/$siteId",                                         'http', 'http', 0644 );
                         $c->checkFile( "$dir/$vhostname-http",                                 'http', 'http', 0644 );
-                        $c->checkFile( "/tmp/workout-file2",                                   'http', 'http', 0644 );
-                        $c->checkFile( "$dir/workout-file2",                                   'http', 'http', 0644 );
+                        $c->checkFile( "/tmp$context",                                         'http', 'http', 0644 );
+                        $c->checkFile( "$dir$context",                                         'http', 'http', 0644 );
                         $c->checkFile( "$dir/testing\@ignore.ubos.net-testuser",               'http', 'http', 0644 );
                     
                         return 1;
