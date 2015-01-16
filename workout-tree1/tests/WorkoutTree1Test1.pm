@@ -59,7 +59,7 @@ my $TEST = new UBOS::WebAppTest(
                     check => sub {
                         my $c = shift;
 
-                        my $dir = $c->getTest()->apache2ContextDir();
+                        my $dir = $c->getTestPlan()->apache2ContextDir();
 
                         checkDir( $c, "$dir/tree-1-asis",     'root', 'root',  0755, 0644 );
                         checkDir( $c, "$dir/tree-1-chmod",    'root', 'root',  0753, 0432 );

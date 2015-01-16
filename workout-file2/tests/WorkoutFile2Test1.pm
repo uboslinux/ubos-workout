@@ -40,11 +40,11 @@ my $TEST = new UBOS::WebAppTest(
                     check => sub {
                         my $c = shift;
 
-                        my $appConfigId = $c->getTest()->appConfigId();
-                        my $dir         = $c->getTest()->apache2ContextDir();
+                        my $appConfigId = $c->getTestPlan()->appConfigId();
+                        my $dir         = $c->apache2ContextDir();
                         my $hostname    = hostname();
-                        my $siteId      = $c->getTest()->siteId();
-                        my $vhostname   = $c->getTest()->hostname();
+                        my $siteId      = $c->getTestPlan()->siteId();
+                        my $vhostname   = $c->getTestPlan()->hostname();
 
                         debug( 'Checking section 1' );
                         $c->checkFile( "/etc/cron.d/50-$appConfigId", 'root', 'root',  '0644' );

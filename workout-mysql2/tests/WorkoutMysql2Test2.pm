@@ -38,8 +38,8 @@ my $TEST = new UBOS::WebAppTest(
                     name  => 'virgin',
                     check => sub {
                         my $c      = shift;
-                        my $siteId = $c->getTest()->siteId();
-                        my $dbFile = $c->getTest()->apache2ContextDir() .  '/db';
+                        my $siteId = $c->getTestPlan()->siteId();
+                        my $dbFile = $c->getTestPlan()->apache2ContextDir() .  '/db';
 
                         my $scaffold = $c->getScaffold();
 

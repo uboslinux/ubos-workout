@@ -28,41 +28,56 @@ use UBOS::Logging;
 use UBOS::Utils;
 use UBOS::WebAppTest;
 
-my %vars = (
-    'apache2.appconfigfragmentdir'            => '/etc/httpd/ubos/appconfigs',
-    'apache2.gname'                           => 'http',
-    'apache2.sitefragmentdir'                 => '/etc/httpd/ubos/sites',
-    'apache2.sitesdir'                        => '/srv/http/sites',
-    'apache2.ssldir'                          => '/etc/httpd/ubos/ssl',
-    'apache2.uname'                           => 'http',
-    'appconfig.apache2.appconfigfragmentfile' => '/etc/httpd/ubos/appconfigs/s[\da-f]{40}/a[\da-f]{40}.conf',
-    'appconfig.apache2.dir'                   => '/srv/http/sites/s[\da-f]{40}/workout-file1',
-    'appconfig.appconfigid'                   => 'a[\da-f]{40}',
-    'appconfig.context'                       => '/workout-file1',
-    'appconfig.contextnoslashorroot'          => 'workout-file1',
-    'appconfig.contextorslash'                => '/workout-file1',
-    'appconfig.cronjobfile'                   => '/etc/cron.d/50-a[\da-f]{40}',
-    'appconfig.datadir'                       => '/var/lib/workout-file1/a[\da-f]{40}',
-    'host.tmpdir'                             => '/tmp',
-    'hostname'                                => '\S+',
-    'now.tstamp'                              => '\d{8}-\d{6}',
-    'now.unixtime'                            => '\d+',
-    'package.codedir'                         => '/usr/share/workout-file1',
-    'package.datadir'                         => '/var/lib/workout-file1',
-    'package.manifestdir'                     => '/var/lib/ubos/manifests',
-    'package.name'                            => 'workout-file1',
-    'site.admin.credential'                   => 's3cr3t',
-    'site.admin.email'                        => 'testing@ignore.ubos.net',
-    'site.admin.userid'                       => 'testuser',
-    'site.admin.username'                     => 'Test User',
-    'site.apache2.authgroupfile'              => '/etc/httpd/ubos/sites/s[\da-f]{40}\.groups',
-    'site.apache2.htdigestauthuserfile'       => '/etc/httpd/ubos/sites/s[\da-f]{40}\.htdigest',
-    'site.apache2.sitedocumentdir'            => '/srv/http/sites/s[\da-f]{40}',
-    'site.apache2.sitefragmentfile'           => '/etc/httpd/ubos/sites/s[\da-z]{40}\.conf',
-    'site.hostname'                           => 'test',
-    'site.protocol'                           => 'http',
-    'site.siteid'                             => 's[\da-f]{40}'
-);
+my %vars = ();
+
+# Initialize the vars hash
+# $hostName: the host at which the site runs
+# $context: the context at which the site runs
+sub initVars {
+    my $hostName = shift;
+    my $context  = shift;
+
+    my $noSlashContext = $context;
+    $noSlashContext =~ s!^/!!;
+
+    my $contextOrSlash = $context ? $context : '/';
+
+    %vars = (
+        'apache2.appconfigfragmentdir'            => '/etc/httpd/ubos/appconfigs',
+        'apache2.gname'                           => 'http',
+        'apache2.sitefragmentdir'                 => '/etc/httpd/ubos/sites',
+        'apache2.sitesdir'                        => '/srv/http/sites',
+        'apache2.ssldir'                          => '/etc/httpd/ubos/ssl',
+        'apache2.uname'                           => 'http',
+        'appconfig.apache2.appconfigfragmentfile' => '/etc/httpd/ubos/appconfigs/s[\da-f]{40}/a[\da-f]{40}.conf',
+        'appconfig.apache2.dir'                   => '/srv/http/sites/s[\da-f]{40}' . $context,
+        'appconfig.appconfigid'                   => 'a[\da-f]{40}',
+        'appconfig.context'                       => $context,
+        'appconfig.contextnoslashorroot'          => $noSlashContext,
+        'appconfig.contextorslash'                => $contextOrSlash,
+        'appconfig.cronjobfile'                   => '/etc/cron.d/50-a[\da-f]{40}',
+        'appconfig.datadir'                       => '/var/lib/workout-file1/a[\da-f]{40}',
+        'host.tmpdir'                             => '/tmp',
+        'hostname'                                => '\S+',
+        'now.tstamp'                              => '\d{8}-\d{6}',
+        'now.unixtime'                            => '\d+',
+        'package.codedir'                         => '/usr/share/workout-file1',
+        'package.datadir'                         => '/var/lib/workout-file1',
+        'package.manifestdir'                     => '/var/lib/ubos/manifests',
+        'package.name'                            => 'workout-file1',
+        'site.admin.credential'                   => 's3cr3t',
+        'site.admin.email'                        => 'testing@ignore.ubos.net',
+        'site.admin.userid'                       => 'testuser',
+        'site.admin.username'                     => 'Test User',
+        'site.apache2.authgroupfile'              => '/etc/httpd/ubos/sites/s[\da-f]{40}\.groups',
+        'site.apache2.htdigestauthuserfile'       => '/etc/httpd/ubos/sites/s[\da-f]{40}\.htdigest',
+        'site.apache2.sitedocumentdir'            => '/srv/http/sites/s[\da-f]{40}',
+        'site.apache2.sitefragmentfile'           => '/etc/httpd/ubos/sites/s[\da-z]{40}\.conf',
+        'site.hostname'                           => $hostName,
+        'site.protocol'                           => 'http',
+        'site.siteid'                             => 's[\da-f]{40}'
+    );
+}
 
 # 
 # Helper methods
@@ -111,7 +126,9 @@ my $TEST = new UBOS::WebAppTest(
                     check => sub {
                         my $c = shift;
 
-                        my $dir = $c->getTest()->apache2ContextDir();
+                        my $dir = $c->apache2ContextDir();
+
+                        initVars( $c->hostName(), $c->context() );
 
                         debug( 'Checking copied files' );
                         $c->checkFile( "$dir/file-copy-1.TXT", 'root', 'root',   0644, \&checkStaticContent );
