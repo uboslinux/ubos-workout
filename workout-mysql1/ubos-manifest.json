@@ -16,7 +16,7 @@
         "mysql" : {
             "appconfigitems" : [
                 {
-                    "type"         : "mysql-database",
+                    "type"         : "database",
                     "name"         : "foo",
                     "privileges"   : "SELECT, UPDATE, INSERT, DELETE",
                     "retentionbucket" : "bar",

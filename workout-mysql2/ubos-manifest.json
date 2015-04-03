@@ -17,7 +17,7 @@
         "mysql" : {
             "appconfigitems" : [
                 {
-                    "type"         : "mysql-database",
+                    "type"         : "database",
                     "name"         : "valuabletemplate",
                     "privileges"   : "SELECT, UPDATE, INSERT, DELETE",
                 },
