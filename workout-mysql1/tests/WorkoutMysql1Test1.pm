@@ -69,6 +69,7 @@ SELECT * FROM `happenings` ORDER BY `ts`;
 SQL
 
 my %events = ();
+my $exit = 0;
 while( my $ref = $sth->fetchrow_hashref() ) {
     my $event = $ref->{event};
     if( exists( $events{$event} )) {
@@ -78,8 +79,7 @@ while( my $ref = $sth->fetchrow_hashref() ) {
     }
 }
 
-my $exit = 0;
-# There can be two events (create and install) or three events (plus: upgrade)
+# There can be two events (create and install) plus any number of upgrade events
 if( exists( $events{'create.sql'} )) {
     unless( $events{'create.sql'} == 1 ) {
         print STDERR "Too many create events: " . $events{'create.sql'} . "\n";
@@ -98,12 +98,8 @@ if( exists( $events{'install.sql'} )) {
     print STDERR "No install event\n";
     $exit = 1;
 }
-if( exists( $events{'upgrade.sql'} )) {
-    unless( $events{'upgrade.sql'} == 1 ) {
-        print STDERR "Too many upgrade events: " . $events{'upgrade.sql'} . "\n";
-        $exit = 1;
-    }
-} # There may not be an upgrade event
+# FIXME: check for upgrade events. Problem: there may be zero or any number, depending
+# on the test plan
 
 exit $exit;
 CMD

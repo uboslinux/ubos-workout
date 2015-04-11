@@ -53,11 +53,11 @@ sub initVars {
         'apache2.ssldir'                          => '/etc/httpd/ubos/ssl',
         'apache2.uname'                           => 'http',
         'appconfig.apache2.appconfigfragmentfile' => '/etc/httpd/ubos/appconfigs/s[\da-f]{40}/a[\da-f]{40}.conf',
-        'appconfig.apache2.dir'                   => '/srv/http/sites/s[\da-f]{40}' . $context,
+        'appconfig.apache2.dir'                   => '/srv/http/sites/s[\da-f]{40}' . quotemeta( $context ),
         'appconfig.appconfigid'                   => 'a[\da-f]{40}',
-        'appconfig.context'                       => $context,
-        'appconfig.contextnoslashorroot'          => $noSlashOrRootContext,
-        'appconfig.contextorslash'                => $contextOrSlash,
+        'appconfig.context'                       => quotemeta( $context ),
+        'appconfig.contextnoslashorroot'          => quotemeta( $noSlashOrRootContext ),
+        'appconfig.contextorslash'                => quotemeta( $contextOrSlash ),
         'appconfig.cronjobfile'                   => '/etc/cron.d/50-a[\da-f]{40}',
         'appconfig.datadir'                       => '/var/lib/workout-file1/a[\da-f]{40}',
         'host.tmpdir'                             => '/tmp',
@@ -76,7 +76,7 @@ sub initVars {
         'site.apache2.htdigestauthuserfile'       => '/etc/httpd/ubos/sites/s[\da-f]{40}\.htdigest',
         'site.apache2.sitedocumentdir'            => '/srv/http/sites/s[\da-f]{40}',
         'site.apache2.sitefragmentfile'           => '/etc/httpd/ubos/sites/s[\da-z]{40}\.conf',
-        'site.hostname'                           => $hostname,
+        'site.hostname'                           => quotemeta( $hostname ),
         'site.protocol'                           => 'http',
         'site.siteid'                             => 's[\da-f]{40}'
     );
@@ -111,7 +111,7 @@ sub checkTemplateContent {
         my $toMatch = quotemeta( $var ) . "\\s+$regex\\s*" . quotemeta( "\\\${$var}" ) . "\\s*";
 
         unless( $content =~ m!^$toMatch$!m ) {
-            $c->error( 'Incorrect variable substitution in file', $fileName, 'for var', $var );
+            $c->error( 'Incorrect variable substitution in file', $fileName, 'for var', $var, ': was expecting', $toMatch );
             $ret = 0;
         }
     }

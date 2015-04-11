@@ -64,11 +64,12 @@ unless( eval $dbFileContent ) {
     print STDERR "Eval failed: $!\n";
     exit 1;
 }
-my $dbh = UBOS::Databases::MySqlDriver::dbConnect( $dbName, $dbUserLid, $dbUserLidCredential, $dbHost, $dbPort );
 
+my $dbh = UBOS::Databases::MySqlDriver::dbConnect( $dbName, $dbUserLid, $dbUserLidCredential, $dbHost, $dbPort );
 my $sth = UBOS::Databases::MySqlDriver::sqlPrepareExecute( $dbh, <<SQL );
 SELECT * FROM `happenings` ORDER BY `ts`;
 SQL
+
 my %events = ();
 my $exit   = 0;
 while( my $ref = $sth->fetchrow_hashref() ) {
@@ -78,17 +79,13 @@ while( my $ref = $sth->fetchrow_hashref() ) {
     } else {
         $events{$event} = 1;
     }
-    unless( $ref->{argument} =~ m!$siteId! ) {
-        print STDERR "No siteid in argument column\n";
-        $exit = 1;
-    }
-    unless( $ref->{argument} =~ m!$dbUserLid! ) {
-        print STDERR "No dbUserLid in argument column\n";
+    unless( $ref->{argument} =~ m!\Q$siteId\E! ) {
+        print STDERR "No siteid in argument column. Was looking for $siteId, found " . $ref->{argument} . "\n";
         $exit = 1;
     }
 }
 
-# There can be two events (create and install) or three events (plus: upgrade)
+# There can be two events (create and install) plus any number of upgrade events
 if( exists( $events{'create.tmpl'} )) {
     unless( $events{'create.tmpl'} == 1 ) {
         print STDERR "Too many create events: " . $events{'create.sql'} . "\n";
@@ -107,12 +104,8 @@ if( exists( $events{'install.tmpl'} )) {
     print STDERR "No install event\n";
     $exit = 1;
 }
-if( exists( $events{'upgrade.tmpl'} )) {
-    unless( $events{'upgrade.tmpl'} == 1 ) {
-        print STDERR "Too many upgrade events: " . $events{'upgrade.sql'} . "\n";
-        $exit = 1;
-    }
-} # There may not be an upgrade event
+# FIXME: check for upgrade events. Problem: there may be zero or any number, depending
+# on the test plan
 
 exit $exit;
 CMD

@@ -20,6 +20,8 @@
                     "type"         : "database",
                     "name"         : "valuabletemplate",
                     "privileges"   : "SELECT, UPDATE, INSERT, DELETE",
+                    "retentionbucket" : "bar",
+                    "retentionpolicy" : "keep"
                 },
                 {
                     "type"         : "sqlscript",
