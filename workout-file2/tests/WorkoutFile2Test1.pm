@@ -47,10 +47,10 @@ my $TEST = new UBOS::WebAppTest(
                         my $siteId      = $c->getTestPlan()->siteId();
                         my $vhostname   = $c->getTestPlan()->hostname();
 
-                        debug( 'Checking section 1' );
+                        trace( 'Checking section 1' );
                         $c->checkFile( "/etc/cron.d/50-$appConfigId", 'root', 'root',  '0644' );
 
-                        debug( 'Checking section 2' );
+                        trace( 'Checking section 2' );
                         $c->checkFile( "/etc/httpd/ubos/appconfigs/file.txt",                  'root', 'root', 0644 );
                         $c->checkFile( "/srv/http/sites/file.txt",                             'root', 'root', 0644 );
                         $c->checkFile( "/etc/httpd/ubos/ssl/file.txt",                         'root', 'root', 0644 );
@@ -59,8 +59,8 @@ my $TEST = new UBOS::WebAppTest(
                         $c->checkFile( "/etc/httpd/ubos/sites/$siteId.groups",                 'root', 'root', 0644 );
                         $c->checkFile( "/etc/httpd/ubos/sites/$siteId.htdigest",               'root', 'root', 0644 );
 
-                        debug( 'Checking section 3' );
-                        debug( 'Checking section 4' );
+                        trace( 'Checking section 3' );
+                        trace( 'Checking section 4' );
 
                         $c->checkFile( "$dir/$appConfigId",                                    'http', 'http', 0644 );
                         # Cannot test: "/var/lib/workout-file2/$appConfigId/$hostname": must be remote hostname
@@ -69,7 +69,7 @@ my $TEST = new UBOS::WebAppTest(
                         $c->checkFile( "/tmp$context",                                         'http', 'http', 0644 );
                         $c->checkFile( "$dir$context",                                         'http', 'http', 0644 );
                         $c->checkFile( "$dir/testing\@ignore.ubos.net-testuser",               'http', 'http', 0644 );
-                    
+
                         return 1;
                     }
             )
