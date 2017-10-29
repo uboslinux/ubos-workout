@@ -34,6 +34,11 @@ use UBOS::WebAppTest;
 my $TEST = new UBOS::WebAppTest(
     appToTest   => 'workout-file2',
     description => 'Tests installation of file AppConfigItems with variables in filenames.',
+
+    packageDbsToAdd => {
+        'toyapps' => 'http://depot.ubos.net/$channel/$arch/toyapps'
+    },
+
     checks      => [
             new UBOS::WebAppTest::StateCheck(
                     name  => 'virgin',

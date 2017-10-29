@@ -33,6 +33,11 @@ use UBOS::WebAppTest;
 my $TEST = new UBOS::WebAppTest(
     appToTest   => 'workout-tree2',
     description => 'Tests installation of directory tree AppConfigItems.',
+
+    packageDbsToAdd => {
+        'toyapps' => 'http://depot.ubos.net/$channel/$arch/toyapps'
+    },
+
     checks      => [
             new UBOS::WebAppTest::StateCheck(
                     name  => 'virgin',

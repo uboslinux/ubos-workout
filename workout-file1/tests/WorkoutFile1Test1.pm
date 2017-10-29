@@ -123,6 +123,11 @@ sub checkTemplateContent {
 my $TEST = new UBOS::WebAppTest(
     appToTest   => 'workout-file1',
     description => 'Tests installation of file AppConfigItems.',
+
+    packageDbsToAdd => {
+        'toyapps' => 'http://depot.ubos.net/$channel/$arch/toyapps'
+    },
+
     checks      => [
             new UBOS::WebAppTest::StateCheck(
                     name  => 'virgin',

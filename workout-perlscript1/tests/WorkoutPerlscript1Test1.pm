@@ -112,6 +112,11 @@ sub checkTemplateContent {
 my $TEST = new UBOS::WebAppTest(
     appToTest   => 'workout-perlscript1',
     description => 'Tests installation of perlscript AppConfigItems.',
+
+    packageDbsToAdd => {
+        'toyapps' => 'http://depot.ubos.net/$channel/$arch/toyapps'
+    },
+
     checks      => [
             new UBOS::WebAppTest::StateCheck(
                     name  => 'virgin',
