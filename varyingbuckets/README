@@ -1,0 +1,19 @@
+This app is not built as part of the build.
+Instead, it needs to be built manually and used for testing manually.
+
+Example sequence:
+* BUCKETS=1 makepkg
+* pacman -U
+* ubos-admin createsite
+* Copy files into /srv/http/sites/*/dir1/
+* BUCKETS=2 makepkg
+* ubos-admin update --pkg <>
+
+Make sure it does not fail here and that the files are still in the directory. Then:
+
+* Copy files into /srv/http/sites/*/dir1/ and /srv/http/sites/*/dir2/
+* BUCKETS=1 makepkg
+* ubos-admin update --pkg <>
+
+Make sure it does not fail here either, and that the files from dir1 are still there, dir2's are allowed to be missing.
+

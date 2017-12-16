@@ -1,0 +1,37 @@
+developer="http://indiecomputing.com/"
+url="http://ubos.net/"
+maintainer=${developer}
+pkgname=$(basename $(pwd))
+pkgver=0.1
+pkgrel=1
+pkgdesc="Test app for varying numbers of retentionbuckets"
+arch=('any')
+license=('GPL')
+options=('!strip')
+
+prepare() {
+    if [[ -z "${BUCKETS}" ]]; then
+        die "Env var BUCKETS not defined. Must be 1 or 2"
+    fi
+    if [[ "${BUCKETS}" != 1 && "${BUCKETS}" != 2 ]]; then
+        die "Env var BUCKETS must be 1 or 2"
+    fi
+}
+
+package() {
+# Manifest
+    mkdir -p ${pkgdir}/var/lib/ubos/manifests
+    if [[ "${BUCKETS}" == 1 ]]; then
+        install -m0644 $startdir/ubos-manifest-1.json ${pkgdir}/var/lib/ubos/manifests/${pkgname}.json
+    else
+        install -m0644 $startdir/ubos-manifest-2.json ${pkgdir}/var/lib/ubos/manifests/${pkgname}.json
+    fi
+
+# Code
+    mkdir -p $pkgdir/usr/share/${pkgname}
+}
+
+die() {
+    echo $@ >&2
+    exit 1;
+}

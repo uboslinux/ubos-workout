@@ -1,0 +1,17 @@
+{
+    "type" : "app",
+
+    "roles" : {
+        "apache2" : {
+            "defaultcontext" : "",
+            "appconfigitems" : [
+                {
+                    "type"            : "directory",
+                    "name"            : "dir1",
+                    "retentionpolicy" : "keep",
+                    "retentionbucket" : "dir1"
+                }
+            ]
+        }
+    }
+}
