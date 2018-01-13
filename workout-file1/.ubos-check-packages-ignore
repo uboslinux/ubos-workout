@@ -1,0 +1,9 @@
+file-template-varsubst.tmpl
+file-template-perlscript.pl
+file-copy.txt
+dollar-1/file-1-copy-a.txt
+dollar-1/multi/file-1-copy-c.txt
+dollar-1/multi/multi/file-1-copy-b.txt
+dollar-2/file-2-copy-a.txt
+dollar-2/file-2-copy-b.txt
+dollar-2/file-2-copy-c.txt

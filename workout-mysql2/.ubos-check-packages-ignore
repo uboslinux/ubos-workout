@@ -1,0 +1,4 @@
+db.tmpl
+create.tmpl
+install.tmpl
+upgrade.tmpl
