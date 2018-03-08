@@ -14,6 +14,11 @@
                     "type"         : "symlink",
                     "name"         : "symlink-2",
                     "source"       : "${package.codedir}/somefile"
+                },
+                {
+                    "type"         : "symlink",
+                    "name"         : "symlink-3",
+                    "source"       : "/does/not/exist"
                 }
             ]
         }
