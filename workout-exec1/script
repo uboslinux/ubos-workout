@@ -1,0 +1,52 @@
+#!/usr/bin/perl
+#
+# Copyright (C) 2014 and later, Indie Computing Corp. All rights reserved. License: see package.
+#
+
+use strict;
+use warnings;
+
+use UBOS::Utils;
+use UBOS::Logging;
+
+if( @ARGV != 3 ) {
+    error( 'Wrong number of arguments:', @ARGV );
+    exit( 1 );
+}
+
+my $operation = $ARGV[1];
+my $file      = $ARGV[2];
+
+if(    $operation ne 'deploy'
+    && $operation ne 'undeploy'
+    && $operation ne 'install'
+    && $operation ne 'upgrade' )
+{
+    error( 'Unknown operation:', $operation );
+    exit( 2 );
+}
+unless( -r $file ) {
+    error( 'File cannot be read:', $file );
+    exit( 3 );
+}
+my $json = UBOS::Utils::readJsonFromFile( $file );
+unless( $json ) {
+    error( 'JSON file cannot be parsed:', $file );
+    exit( 4 );
+}
+
+unless( exists( $json->{appconfig}->{appconfigid} )) {
+    error( 'Cannot find appconfigid in JSON', $file );
+    exit( 5 );
+}
+
+my $dir = $json->{appconfig}->{apache2}->{dir};
+my $out = "$dir/file";
+
+unless( UBOS::Utils::writeJsonToFile( $out, $json )) {
+    error( 'Failed to write file', $out );
+    exit( 6 );
+}
+exit( 0 );
+
+1;

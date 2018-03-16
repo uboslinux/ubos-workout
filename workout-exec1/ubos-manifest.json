@@ -1,0 +1,15 @@
+{
+    "type" : "app",
+
+    "roles" : {
+        "apache2" : {
+            "defaultcontext" : "/workout-exec",
+            "appconfigitems" : [
+                {
+                    "type"         : "script",
+                    "source"       : "script"
+                }
+            ]
+        }
+    }
+}
