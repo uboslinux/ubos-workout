@@ -17,5 +17,5 @@ package() {
     install -D -m0644 ${startdir}/{create,install,upgrade}.sql -t ${pkgdir}/ubos/share/${pkgname}/
 
 # Templates
-    install -m0644 ${startdir}/db.tmpl -r ${pkgdir}/ubos/share/${pkgname}/
+    install -m0644 ${startdir}/db.tmpl -t ${pkgdir}/ubos/share/${pkgname}/
 }
