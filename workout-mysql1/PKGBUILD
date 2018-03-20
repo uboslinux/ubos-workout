@@ -2,8 +2,8 @@ developer="http://indiecomputing.com/"
 url="http://ubos.net/"
 maintainer=${developer}
 pkgname=$(basename $(pwd))
-pkgver=0.2
-pkgrel=3
+pkgver=0.3
+pkgrel=1
 pkgdesc="Exercises ubos-admin: mysql"
 arch=('any')
 license=('AGPL3')
@@ -11,13 +11,11 @@ options=('!strip')
 
 package() {
 # Manifest
-    mkdir -p ${pkgdir}/var/lib/ubos/manifests
-    install -m0644 ${startdir}/ubos-manifest.json ${pkgdir}/var/lib/ubos/manifests/${pkgname}.json
+    install -D -m0644 ${startdir}/ubos-manifest.json ${pkgdir}/ubos/lib/ubos/manifests/${pkgname}.json
 
 # Code
-    mkdir -p ${pkgdir}/usr/share/${pkgname}
-    install -m0644 ${startdir}/{create,install,upgrade}.sql ${pkgdir}/usr/share/${pkgname}
+    install -D -m0644 ${startdir}/{create,install,upgrade}.sql -t ${pkgdir}/ubos/share/${pkgname}/
 
 # Templates
-    install -m0644 ${startdir}/db.tmpl ${pkgdir}/usr/share/${pkgname}
+    install -m0644 ${startdir}/db.tmpl -r ${pkgdir}/ubos/share/${pkgname}/
 }

@@ -32,8 +32,8 @@ my $TEST = new UBOS::WebAppTest(
 
                         my $dir = $c->apache2ContextDir();
 
-                        $c->checkSymlink( '/tmp',                                 "$dir/symlink-1" );
-                        $c->checkSymlink( '/usr/share/workout-symlink1/somefile', "$dir/symlink-2" );
+                        $c->checkSymlink( '/tmp',                                  "$dir/symlink-1" );
+                        $c->checkSymlink( '/ubos/share/workout-symlink1/somefile', "$dir/symlink-2" );
 
                         return 1;
                     }

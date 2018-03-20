@@ -2,7 +2,7 @@ developer="http://indiecomputing.com/"
 url="http://ubos.net/"
 maintainer=${developer}
 pkgname=$(basename $(pwd))
-pkgver=0.2
+pkgver=0.3
 pkgrel=1
 pkgdesc="Exercises ubos-admin: files"
 arch=('any')
@@ -11,11 +11,9 @@ options=('!strip')
 
 package() {
 # Manifest
-    mkdir -p ${pkgdir}/var/lib/ubos/manifests
-    install -m0644 $startdir/ubos-manifest.json ${pkgdir}/var/lib/ubos/manifests/${pkgname}.json
+    install -D -m0644 ${startdir}/ubos-manifest.json ${pkgdir}/ubos/lib/ubos/manifests/${pkgname}.json
 
 # Code
-    mkdir -p $pkgdir/usr/share/${pkgname}
-    cp -a ${startdir}/{dollar-1,dollar-2} $pkgdir/usr/share/${pkgname}/
-    cp -a ${startdir}/{file-copy.txt,file-template-perlscript.pl,file-template-varsubst.tmpl} ${pkgdir}/usr/share/${pkgname}/
+    install -D -m0644 ${startdir}/{file-copy.txt,file-template-perlscript.pl,file-template-varsubst.tmpl} -t ${pkgdir}/ubos/share/${pkgname}/
+    cp -a ${startdir}/{dollar-1,dollar-2} ${pkgdir}/ubos/share/${pkgname}/
 }

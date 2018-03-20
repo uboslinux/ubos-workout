@@ -36,24 +36,24 @@ sub initVars {
 
     %vars = (
         'apache2' => {
-            'appconfigfragmentdir'            => '/etc/httpd/ubos/appconfigs',
+            'appconfigfragmentdir'            => '/etc/httpd/appconfigs',
             'gname'                           => 'http',
-            'sitefragmentdir'                 => '/etc/httpd/ubos/sites',
-            'sitesdir'                        => '/srv/http/sites',
-            'ssldir'                          => '/etc/httpd/ubos/ssl',
+            'sitefragmentdir'                 => '/etc/httpd/sites',
+            'sitesdir'                        => '/ubos/http/sites',
+            'ssldir'                          => '/etc/httpd/ssl',
             'uname'                           => 'http'
         },
         'appconfig' => {
             'apache2' => {
-                'appconfigfragmentfile' => '/etc/httpd/ubos/appconfigs/s[\da-f]{40}/a[\da-f]{40}.conf',
-                'dir'                   => '/srv/http/sites/s[\da-f]{40}' . quotemeta( $context )
+                'appconfigfragmentfile' => '/etc/httpd/appconfigs/s[\da-f]{40}/a[\da-f]{40}.conf',
+                'dir'                   => '/ubos/http/sites/s[\da-f]{40}' . quotemeta( $context )
             },
             'appconfigid'                   => 'a[\da-f]{40}',
             'context'                       => quotemeta( $context ),
             'contextnoslashorroot'          => quotemeta( $noSlashOrRootContext ),
             'contextorslash'                => quotemeta( $contextOrSlash ),
             'cronjobfile'                   => '/etc/cron.d/50-a[\da-f]{40}',
-            'datadir'                       => '/var/lib/workout-perlscript1/a[\da-f]{40}'
+            'datadir'                       => '/ubos/lib/workout-perlscript1/a[\da-f]{40}'
         },
         'host' => {
             'tmpdir'                             => '/tmp'
@@ -64,9 +64,9 @@ sub initVars {
             'unixtime'                            => '\d+'
         },
         'package' => {
-            'codedir'                         => '/usr/share/workout-perlscript1',
-            'datadir'                         => '/var/lib/workout-perlscript1',
-            'manifestdir'                     => '/var/lib/ubos/manifests',
+            'codedir'                         => '/ubos/share/workout-perlscript1',
+            'datadir'                         => '/ubos/lib/workout-perlscript1',
+            'manifestdir'                     => '/ubos/lib/ubos/manifests',
             'name'                            => 'workout-perlscript1'
         },
         'site' => {
@@ -77,10 +77,10 @@ sub initVars {
                 'username'                     => 'Test User'
             },
             'apache2' => {
-                'authgroupfile'              => '/etc/httpd/ubos/sites/s[\da-f]{40}\.groups',
-                'htdigestauthuserfile'       => '/etc/httpd/ubos/sites/s[\da-f]{40}\.htdigest',
-                'sitedocumentdir'            => '/srv/http/sites/s[\da-f]{40}',
-                'sitefragmentfile'           => '/etc/httpd/ubos/sites/s[\da-z]{40}\.conf'
+                'authgroupfile'              => '/etc/httpd/sites/s[\da-f]{40}\.groups',
+                'htdigestauthuserfile'       => '/etc/httpd/sites/s[\da-f]{40}\.htdigest',
+                'sitedocumentdir'            => '/ubos/http/sites/s[\da-f]{40}',
+                'sitefragmentfile'           => '/etc/httpd/sites/s[\da-z]{40}\.conf'
             },
             'hostname'                           => quotemeta( $hostname ),
             'protocol'                           => 'http',

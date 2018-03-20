@@ -42,24 +42,24 @@ my $TEST = new UBOS::WebAppTest(
                         $c->checkFile( "/etc/cron.d/50-$appConfigId", 'root', 'root',  '0644' );
 
                         trace( 'Checking section 2' );
-                        $c->checkFile( "/etc/httpd/ubos/appconfigs/file.txt",                  'root', 'root', 0644 );
-                        $c->checkFile( "/srv/http/sites/file.txt",                             'root', 'root', 0644 );
-                        $c->checkFile( "/etc/httpd/ubos/ssl/file.txt",                         'root', 'root', 0644 );
-                        $c->checkFile( "/etc/httpd/ubos/appconfigs/$siteId/$appConfigId.conf", 'root', 'root', 0644 );
-                        $c->checkFile( "$dir/file.txt",                                        'root', 'root', 0644 );
-                        $c->checkFile( "/etc/httpd/ubos/sites/$siteId.groups",                 'root', 'root', 0644 );
-                        $c->checkFile( "/etc/httpd/ubos/sites/$siteId.htdigest",               'root', 'root', 0644 );
+                        $c->checkFile( "/etc/httpd/appconfigs/file.txt",                  'root', 'root', 0644 );
+                        $c->checkFile( "/ubos/http/sites/file.txt",                       'root', 'root', 0644 );
+                        $c->checkFile( "/etc/httpd/ssl/file.txt",                         'root', 'root', 0644 );
+                        $c->checkFile( "/etc/httpd/appconfigs/$siteId/$appConfigId.conf", 'root', 'root', 0644 );
+                        $c->checkFile( "$dir/file.txt",                                   'root', 'root', 0644 );
+                        $c->checkFile( "/etc/httpd/sites/$siteId.groups",                 'root', 'root', 0644 );
+                        $c->checkFile( "/etc/httpd/sites/$siteId.htdigest",               'root', 'root', 0644 );
 
                         trace( 'Checking section 3' );
                         trace( 'Checking section 4' );
 
-                        $c->checkFile( "$dir/$appConfigId",                                    'http', 'http', 0644 );
-                        # Cannot test: "/var/lib/workout-file2/$appConfigId/$hostname": must be remote hostname
-                        $c->checkFile( "$dir/$siteId",                                         'http', 'http', 0644 );
-                        $c->checkFile( "$dir/$vhostname-http",                                 'http', 'http', 0644 );
-                        $c->checkFile( "/tmp$context",                                         'http', 'http', 0644 );
-                        $c->checkFile( "$dir$context",                                         'http', 'http', 0644 );
-                        $c->checkFile( "$dir/testing\@ignore.ubos.net-testuser",               'http', 'http', 0644 );
+                        $c->checkFile( "$dir/$appConfigId",                               'http', 'http', 0644 );
+                        # Cannot test: "/ubos/lib/workout-file2/$appConfigId/$hostname": must be remote hostname
+                        $c->checkFile( "$dir/$siteId",                                    'http', 'http', 0644 );
+                        $c->checkFile( "$dir/$vhostname-http",                            'http', 'http', 0644 );
+                        $c->checkFile( "/tmp$context",                                    'http', 'http', 0644 );
+                        $c->checkFile( "$dir$context",                                    'http', 'http', 0644 );
+                        $c->checkFile( "$dir/testing\@ignore.ubos.net-testuser",          'http', 'http', 0644 );
 
                         return 1;
                     }

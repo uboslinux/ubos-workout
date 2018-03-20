@@ -2,7 +2,7 @@ developer="http://indiecomputing.com/"
 url="http://ubos.net/"
 maintainer=${developer}
 pkgname=$(basename $(pwd))
-pkgver=0.2
+pkgver=0.3
 pkgrel=1
 pkgdesc="Test app for varying numbers of retentionbuckets"
 arch=('any')
@@ -20,15 +20,15 @@ prepare() {
 
 package() {
 # Manifest
-    mkdir -p ${pkgdir}/var/lib/ubos/manifests
+    mkdir -p ${pkgdir}/ubos/lib/ubos/manifests
     if [[ "${BUCKETS}" == 1 ]]; then
-        install -m0644 $startdir/ubos-manifest-1.json ${pkgdir}/var/lib/ubos/manifests/${pkgname}.json
+        install -m0644 ${startdir}/ubos-manifest-1.json ${pkgdir}/ubos/lib/ubos/manifests/${pkgname}.json
     else
-        install -m0644 $startdir/ubos-manifest-2.json ${pkgdir}/var/lib/ubos/manifests/${pkgname}.json
+        install -m0644 ${startdir}/ubos-manifest-2.json ${pkgdir}/ubos/lib/ubos/manifests/${pkgname}.json
     fi
 
 # Code
-    mkdir -p $pkgdir/usr/share/${pkgname}
+    mkdir -p ${pkgdir}/ubos/share/${pkgname}
 }
 
 die() {

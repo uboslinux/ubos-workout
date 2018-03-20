@@ -2,8 +2,8 @@ developer="http://indiecomputing.com/"
 url="http://ubos.net/"
 maintainer=${developer}
 pkgname=$(basename $(pwd))
-pkgver=0.2
-pkgrel=2
+pkgver=0.3
+pkgrel=1
 pkgdesc="Exercises ubos-admin: perlscript"
 arch=('any')
 license=('AGPL3')
@@ -11,11 +11,9 @@ options=('!strip')
 
 package() {
 # Manifest
-    mkdir -p ${pkgdir}/var/lib/ubos/manifests
-    install -m0644 $startdir/ubos-manifest.json ${pkgdir}/var/lib/ubos/manifests/${pkgname}.json
+    install -D -m0644 ${startdir}/ubos-manifest.json ${pkgdir}/ubos/lib/ubos/manifests/${pkgname}.json
 
 # Code
-    mkdir -p $pkgdir/usr/share/${pkgname}
-    install ${startdir}/script.pl $pkgdir/usr/share/${pkgname}/
+    install -D -m0644 ${startdir}/script.pl -t ${pkgdir}/usr/share/${pkgname}/
     
 }
