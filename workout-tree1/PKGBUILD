@@ -15,5 +15,5 @@ package() {
 
 # Code
     mkdir -p ${pkgdir}/ubos/share/${pkgname}
-    cp -a ${startdir}/tree-1 ${pkgdir}/usr/share/${pkgname}/
+    cp -a ${startdir}/tree-1 ${pkgdir}/ubos/share/${pkgname}/
 }

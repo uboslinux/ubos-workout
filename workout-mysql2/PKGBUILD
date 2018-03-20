@@ -14,5 +14,5 @@ package() {
     install -D -m0644 ${startdir}/ubos-manifest.json ${pkgdir}/ubos/lib/ubos/manifests/${pkgname}.json
 
 # Templates
-    install -D -m0644 ${startdir}/{create,db,install,upgrade}.tmpl -t ${pkgdir}/usr/share/${pkgname}/
+    install -D -m0644 ${startdir}/{create,db,install,upgrade}.tmpl -t ${pkgdir}/ubos/share/${pkgname}/
 }

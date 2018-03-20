@@ -14,6 +14,6 @@ package() {
     install -D -m0644 ${startdir}/ubos-manifest.json ${pkgdir}/ubos/lib/ubos/manifests/${pkgname}.json
 
 # Code
-    install -D -m0644 ${startdir}/script.pl -t ${pkgdir}/usr/share/${pkgname}/
+    install -D -m0644 ${startdir}/script.pl -t ${pkgdir}/ubos/share/${pkgname}/
     
 }
