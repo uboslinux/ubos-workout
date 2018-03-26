@@ -6,7 +6,7 @@
             "defaultcontext" : "/workout-exec",
             "appconfigitems" : [
                 {
-                    "type"         : "script",
+                    "type"         : "exec",
                     "source"       : "script"
                 }
             ]
