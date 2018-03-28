@@ -53,7 +53,7 @@ sub initVars {
             'contextnoslashorroot'          => quotemeta( $noSlashOrRootContext ),
             'contextorslash'                => quotemeta( $contextOrSlash ),
             'cronjobfile'                   => '/etc/cron.d/50-a[\da-f]{40}',
-            'datadir'                       => '/ubos/lib/workout-perlscript1/a[\da-f]{40}'
+            'datadir'                       => '/ubos/lib/workout-exec1/a[\da-f]{40}'
         },
         'host' => {
             'tmpdir'                             => '/tmp'
@@ -64,10 +64,10 @@ sub initVars {
             'unixtime'                            => '\d+'
         },
         'package' => {
-            'codedir'                         => '/ubos/share/workout-perlscript1',
-            'datadir'                         => '/ubos/lib/workout-perlscript1',
+            'codedir'                         => '/ubos/share/workout-exec1',
+            'datadir'                         => '/ubos/lib/workout-exec1',
             'manifestdir'                     => '/ubos/lib/ubos/manifests',
-            'name'                            => 'workout-perlscript1'
+            'name'                            => 'workout-exec1'
         },
         'site' => {
             'admin' => {
@@ -92,7 +92,7 @@ sub initVars {
 # 
 # Helper methods
 
-sub checkTemplateContent {
+sub checkContent {
     my $c        = shift;
     my $fileName = shift;
 
@@ -111,17 +111,11 @@ sub _check {
     my $ret = 1;
     if( ref( $json )) {
         if( ref( $vars )) {
-            foreach my $key ( sort keys %$json ) {
-                if( exists( $vars->{$key} )) {
+            foreach my $key ( sort keys %vars ) {
+                if( exists( $json->{$key} )) {
                     $ret &= _check( $c, $json->{$key}, $vars->{$key}, [ @$path, $key ] );
                 } else {
-                    $c->myerror( 'Key Not found in vars:', @$path );
-                    $ret = 0;
-                }
-            }
-            foreach my $key ( sort keys %vars ) {
-                unless( exists( $json->{$key} )) {
-                    $c->myerror( 'Key not found in JSON:', @$path );
+                    $c->myerror( 'Key not found in JSON:', $key, '(', @$path, ')' );
                     $ret = 0;
                 }
             }
@@ -134,8 +128,8 @@ sub _check {
             $c->myerror( 'Ref in vars is not in JSON:', @$path );
             $ret = 0;
         } else {
-            if( $json ne $vars ) {
-                $c->myerror( 'Different values:', $json, $vars, '(', @$path . ')' );
+            if( $json !~ m!$vars! ) {
+                $c->myerror( 'Different values:', $json, $vars, '(', @$path , ')' );
                 $ret = 0;
             }
         }

@@ -7,6 +7,10 @@
             "appconfigitems" : [
                 {
                     "type"       : "exec",
+                    "source"     : "cleanup"
+                },
+                {
+                    "type"       : "exec",
                     "source"     : "script"
                 }
             ]
