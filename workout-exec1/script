@@ -9,13 +9,13 @@ use warnings;
 use UBOS::Utils;
 use UBOS::Logging;
 
-if( @ARGV != 3 ) {
+if( @ARGV != 2 ) {
     error( 'Wrong number of arguments:', @ARGV );
     exit( 1 );
 }
 
-my $operation = $ARGV[1];
-my $file      = $ARGV[2];
+my $operation = $ARGV[0];
+my $file      = $ARGV[1];
 
 if(    $operation ne 'deploy'
     && $operation ne 'undeploy'
@@ -31,7 +31,7 @@ unless( -r $file ) {
 }
 my $json = UBOS::Utils::readJsonFromFile( $file );
 unless( $json ) {
-    error( 'JSON file cannot be parsed:', $file );
+    error( 'JSON file cannot be parsed:', $file, $@ );
     exit( 4 );
 }
 

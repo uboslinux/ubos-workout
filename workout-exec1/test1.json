@@ -1,0 +1,17 @@
+{
+   "hostname" : "test1",
+   "admin" : {
+      "userid" : "admin",
+      "credential" : "qwerqwer",
+      "email" : "test@ubos.net",
+      "username" : "admin"
+   },
+   "appconfigs" : [
+      {
+         "appid" : "workout-exec1",
+         "context" : "/foo",
+         "appconfigid" : "a19b9fd097da501c22827a1d0955e6885a9f49d3c"
+      }
+   ],
+   "siteid" : "s2360af334554ca41d6cc6d9cf44e0353c2fcfb8e"
+}
