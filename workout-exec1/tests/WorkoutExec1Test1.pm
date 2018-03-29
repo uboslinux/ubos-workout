@@ -111,7 +111,7 @@ sub _check {
     my $ret = 1;
     if( ref( $json )) {
         if( ref( $vars )) {
-            foreach my $key ( sort keys %vars ) {
+            foreach my $key ( sort keys %$vars ) {
                 if( exists( $json->{$key} )) {
                     $ret &= _check( $c, $json->{$key}, $vars->{$key}, [ @$path, $key ] );
                 } else {
