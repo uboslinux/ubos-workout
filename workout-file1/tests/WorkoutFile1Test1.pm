@@ -46,7 +46,7 @@ sub initVars {
         'appconfig.contextorslash'                => quotemeta( $contextOrSlash ),
         'appconfig.cronjobfile'                   => '/etc/cron.d/50-a[\da-f]{40}',
         'appconfig.datadir'                       => '/ubos/lib/workout-file1/a[\da-f]{40}',
-        'host.tmpdir'                             => '/tmp',
+        'host.tmpdir'                             => '/ubos/tmp',
         'hostname'                                => '\S+',
         'now.tstamp'                              => '\d{8}-\d{6}',
         'now.unixtime'                            => '\d+',
