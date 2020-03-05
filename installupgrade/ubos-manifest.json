@@ -1,0 +1,27 @@
+{
+    "type" : "app",
+
+    "roles" : {
+        "apache2" : {
+            "defaultcontext" : "",
+            "appconfigitems" : [
+                {
+                    "type"   : "perlscript",
+                    "source" : "script.pl"
+                }
+            ],
+            "installers" : [
+                {
+                    "type"   : "perlscript",
+                    "source" : "script.pl"
+                }
+            ],
+            "upgraders" : [
+                {
+                    "type"   : "perlscript",
+                    "source" : "script.pl"
+                }
+            ]
+        }
+    }
+}

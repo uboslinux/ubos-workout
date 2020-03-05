@@ -1,0 +1,30 @@
+{
+    "type" : "accessory",
+
+    "accessoryinfo" : {
+        "appid" : "installupgrade"
+    },
+
+    "roles" : {
+        "apache2" : {
+            "appconfigitems" : [
+                {
+                    "type"   : "perlscript",
+                    "source" : "script.pl"
+                }
+            ],
+            "installers" : [
+                {
+                    "type"   : "perlscript",
+                    "source" : "script.pl"
+                }
+            ],
+            "upgraders" : [
+                {
+                    "type"   : "perlscript",
+                    "source" : "script.pl"
+                }
+            ]
+        }
+    }
+}

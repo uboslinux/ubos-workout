@@ -1,0 +1,22 @@
+{
+   "siteid" : "sa371b76b63aab14942cf52050dec328b7f3e8c28",
+   "hostname" : "*",
+   "admin" : {
+      "email" : "test@ubos.net",
+      "username" : "admin",
+      "credential" : "qwerqwer",
+      "userid" : "admin"
+   },
+   "appconfigs" : [
+      {
+         "appconfigid" : "ac400ab9aa8eec64d85a27c3ebb78031237cf9131",
+         "appid" : "installupgrade",
+         "context" : "/one"
+      },
+      {
+         "appconfigid" : "a41e1e2d8fba6eb65be4f7cd63af82e13a734c312",
+         "appid" : "installupgrade",
+         "context" : "/two"
+      }
+   ]
+}
