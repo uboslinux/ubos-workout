@@ -1,0 +1,30 @@
+{
+    "type" : "app",
+
+    "roles" : {
+        "apache2" : {
+            "fixedcontext" : "",
+            "wellknown" : {
+                "webfinger" : {
+                    "proxy" : "http://127.0.0.1:${installable.customizationpoints.mycp.value}/.well-known/delegate"
+                },
+                "nodeinfo" : {
+                    "template"     : "{\"links\":[{\"rel\":\"http://nodeinfo.diaspora.software/ns/schema/2.0\",\"href\":\"${site.protocol}://${site.hostname}/nodeinfo/2.0\"}]}",
+                    "templatelang" : "varsubst"
+                },
+                "other" : {
+                    "value" : "static-value"
+                }
+            }
+        }
+    },
+    "customizationpoints" : {
+        "mycp" : {
+            "type"        : "string",
+            "required"    : true,
+            "default"     : {
+                "value" : "my-default"
+            }
+        }
+    }
+}
