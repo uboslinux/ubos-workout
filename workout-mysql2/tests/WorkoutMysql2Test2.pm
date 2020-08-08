@@ -56,7 +56,7 @@ unless( eval $dbFileContent ) {
     exit 1;
 }
 
-my $dbh = UBOS::Databases::MySqlDriver::dbConnect( $dbName, $dbUserLid, $dbUserLidCredential, $dbHost, $dbPort );
+my $dbh = UBOS::Databases::MySqlDriver::dbConnect( $dbName, $dbUserLid, $dbUserLidCredential, 'test connect', $dbHost, $dbPort );
 my $sth = UBOS::Databases::MySqlDriver::sqlPrepareExecute( $dbh, <<SQL );
 SELECT * FROM `happenings` ORDER BY `ts`;
 SQL
