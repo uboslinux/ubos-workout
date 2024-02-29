@@ -21,7 +21,7 @@ my $TEST = new UBOS::WebAppTest(
     description => 'Tests MySQL database initialization and upgrade based on templates.',
 
     packageDbsToAdd => {
-        'toyapps' => 'http://depot.ubos.net/$channel/$arch/toyapps'
+        'toyapps' => 'https://depot.ubosfiles.net/$channel/$arch/toyapps'
     },
 
     checks      => [

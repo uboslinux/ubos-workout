@@ -111,7 +111,7 @@ my $TEST = new UBOS::WebAppTest(
     description => 'Tests installation of file AppConfigItems.',
 
     packageDbsToAdd => {
-        'toyapps' => 'http://depot.ubos.net/$channel/$arch/toyapps'
+        'toyapps' => 'https://depot.ubosfiles.net/$channel/$arch/toyapps'
     },
 
     checks      => [
